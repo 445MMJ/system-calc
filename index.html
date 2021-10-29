@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>システムシミュ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="List.js"></script>
+    <link rel="shortcut icon" href="favicon.ico">
+
+    
+
+</head>
+
+<body>
+    <div id="data_input" class="demo">
+        <!-- 宝具タイプ -->
+        <input type="radio"  value="Arts" v-model="np_type" />
+        <label for="Arts">Arts</label>
+        <input type="radio"  value="Quick" v-model="np_type" />
+        <label for="Quick">Quick</label><br>
+
+        <!-- 鯖選択 -->
+        <select v-model="servant_name" @change="get_servant_2">
+            <option disabled value="">Please select servant</option>
+            <option v-for="option in list" v-bind:value="option.name" v-bind:key="option.id">
+                {{ option.name }}
+            </option>
+          </select><br>
+
+        <!-- 宝具レベル -->
+        <input type="radio"  value="1" v-model="np_level" />
+        <label for="np01">宝具1</label>
+        <input type="radio"  value="2" v-model="np_level" />
+        <label for="np02">宝具2</label>
+        <input type="radio"  value="3" v-model="np_level" />
+        <label for="np03">宝具3</label>
+        <input type="radio"  value="4" v-model="np_level" />
+        <label for="np04">宝具4</label>
+        <input type="radio"  value="5" v-model="np_level" />
+        <label for="np05">宝具5</label><br>
+
+        <!-- 入力内容確認 -->
+        <span>np_type: {{ np_type }}</span><br>
+        <span>servant_name: {{ servant_name }}</span><br>
+        <span>servant_object: {{ get_servant }}</span><br>
+        <span>servant_class: {{ servant_class }}</span><br>
+        <span>np_rate: {{ np_rate }}</span><br>
+        <span>np_hit: {{ np_hit }}</span><br>
+        <span>np_level:{{ np_level }}</span><br>
+
+        <!-- カードバフ/% -->
+        <span>カードバフ</span>
+        <input v-model="card_up_buff" placeholder="edit me" type="number"/>%<br>
+
+        <!-- NPバフ/% -->
+        NPバフ
+        <input v-model="np_up_buff" placeholder="edit me" type="number"/>%<br>
+
+        <!-- DTDR -->
+        <select v-model="dtdr">
+            <option v-for="option in dtdr_list" :value="option.value">
+              {{ option.text }}
+            </option>
+          </select><br>
+        
+        <!-- エネミー数 -->
+        <select v-model="enemy_num">
+            <option v-for="option in enemy_num_list" :value="option.value">
+              {{ option.value }}
+            </option>
+          </select><br>
+        
+        <!-- Overkill_hit -->
+        <select v-model="overkill_hit">
+          <option v-for="option of (np_hit + 1)" :value="Number(option - 1)">
+            {{ option - 1 }}
+          </option>
+        </select><br>
+
+        <!-- 入力内容確認 -->
+        <span>card_up_buff:{{ card_up_buff }}</span><br>
+        <span>np_up_buff:{{ np_up_buff }}</span><br>
+        <span>dtdr:{{ dtdr }}</span><br>
+        <span>enemy_num:{{ enemy_num }}</span><br>
+        <span>overkill_hit:{{ overkill_hit }}</span><br>
+        <span>card_hosei:{{ card_hosei }}</span><br>
+
+        <!-- リザルト1＝OCナシ1hitの値　リザルト2＝OK考慮した最終回収NP -->
+        <span>resulted/hit: {{ resulted1 }}</span><br>
+        <span>result: {{ resulted2 }}</span><br>
+        
+
+    </div>
+        
+     
+</body>
+<script src="main.js"></script>
+
+</html>
