@@ -65,7 +65,13 @@
           </option>
         </select><br>
 
-        
+
+        <div v-for="select_skill in all_skill_list" :key="select_skill.id">
+          <skill_checkbox 
+          v-model="checked_skills"
+          :id="select_skill.id"
+          :name="select_skill.name"></skill_checkbox>          
+        </div>
 
         <!-- リザルト1＝OCナシ1hitの値　リザルト2＝OK考慮した最終回収NP -->
         <span>NP/hit: {{ np_per_hit }}</span><br>
@@ -73,19 +79,11 @@
 
 
 
-        <div v-for="support_skill in support_skill_list" :key="support_skill.id">
-          <skill_checkbox 
-          v-model="checked_skills"
-          :id="support_skill.id"
-          :name="support_skill.name"></skill_checkbox>          
-        </div>
-        <br>{{support_skill_list}}
-        <br>{{checked_skills}}
-        <br>{{selected_skills}}
 
-
-        <div >
         <!-- 入力内容確認 -->
+        <div style ="display:none">
+          
+        
         <!-- 宝具レベル -->
         <input type="radio"  value="1" v-model="np_level" />
         <label for="np01">宝具1</label>
@@ -105,19 +103,18 @@
         <span>np_rate: {{ np_rate }}</span><br>
         <span>np_hit: {{ np_hit }}</span><br>
         <span>np_level:{{ np_level }}</span><br>        
-        <span>スキルリスト: {{ skill_list }}</span><br>
+        <span>スキルリスト: {{ servant_skill_list }}</span><br>
         <span>card_up_buff:{{ card_up_buff }}</span><br>
         <span>np_up_buff:{{ np_up_buff }}</span><br>
         <span>dtdr:{{ dtdr }}</span><br>
         <span>enemy_num:{{ enemy_num }}</span><br>
         <span>overkill_hit:{{ overkill_hit }}</span><br>
         <span>card_hosei:{{ card_hosei }}</span><br>
-      </div>
         
-
-
-        
-
+        <br>{{all_skill_list}}
+        <br>{{checked_skills}}
+        <br>{{selected_skills}}
+      </div>  
     </div>
         
      

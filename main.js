@@ -10,7 +10,7 @@ const App = ({
       ,np_level: "1"
       ,np_rate:0.57
       ,np_hit:1
-      ,skill_list:[]
+      ,servant_skill_list:[]
 
       //バフ
       ,card_up_buff:0
@@ -68,6 +68,7 @@ const App = ({
     }
 
     //鯖一覧リスト作り
+
     //別ファイルのList（全サバ乗ってる）の内容をそのままセレクトボックスに入れるのではなく、
     //関数によって条件を満たしたもののみフィルターして返す（Q/A選択)
     ,list(){
@@ -75,11 +76,13 @@ const App = ({
         value.np_type == this.np_type )
     }
 
+    //セレクトボックスで選ばれた鯖の情報をget_servantに入れてget_servant_2メソッドで各種データ単体を取り出し、それぞれ代入
     ,get_servant(){
       return window.List.filter(value => 
         value.name == this.servant_name )
     }
 
+    //選ばれたタイプのカードのサポータースキルリストを作成
     ,support_skill_list(){
       var sum_list= []
       if (this.np_type == "Arts"){
@@ -91,19 +94,23 @@ const App = ({
       return sum_list
     }
 
+    //鯖スキルとサポートスキルを結合
+    ,all_skill_list(){
+      arr1 = this.support_skill_list
+      arr2 = this.servant_skill_list
+      return arr1.concat(arr2);
+    }
+
+    //チェックされたチェックボックスのIDからスキル情報を取り出し配列に入れる
     ,selected_skills(){
-      const arr = this.support_skill_list
+      const arr = this.all_skill_list
       const conds = this.checked_skills
       const res = arr.filter(value => 
         conds.includes(value.id))
       return res  
-    }
+    }  
 
-    
-
-
-    
-
+    //出来た配列から各種バフを組み込む
     ,card_up_buff_input_auto(){
       const adede = this.selected_skills
       let pepe = 0
@@ -136,7 +143,7 @@ const App = ({
       this.np_rate = this.get_servant[0].np_rate
       this.np_hit = this.get_servant[0].np_hit
       this.overkill_hit = 0
-      this.skill_list = this.get_servant[0].skill
+      this.servant_skill_list = this.get_servant[0].skill
     },
     
   }
